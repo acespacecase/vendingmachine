@@ -47,7 +47,7 @@ namespace Capstone.Classes
             Console.WriteLine("-------------------------------------------------------");
             foreach (KeyValuePair<string, List<Item>> item in allItems)
             {
-                Console.WriteLine($"{item.Key.PadRight(12)} {item.Value[0].Name.PadRight(20)} {(item.Value[0].Price).ToString("C2").PadRight(14)} {item.Value.Count()}");
+                Console.WriteLine($"{item.Key.PadRight(12)} {item.Value[0].Name.PadRight(20)} { (item.Value[0].Price).ToString("C2").PadRight(14)} { item.Value.Count()}");
             }
             Console.WriteLine();
             Console.WriteLine("Returning to main menu");

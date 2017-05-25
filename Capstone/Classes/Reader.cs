@@ -37,14 +37,38 @@ namespace Capstone.Classes
             for (int i = 0; i < fullText.Count(); i++)
             {
                 temp = fullText[i].Split('|');
-                Item tempItem = new Item(temp[1], temp[2]);
                 int startingInventoryCount = 5;
                 List<Item> fiveSameItems = new List<Item>();
 
-                for (int j = 0; j < startingInventoryCount; j++)
+                if (temp[0].Substring(0, 1) == "A")
                 {
-                    fiveSameItems.Add(tempItem);
+                    for (int j = 0; j < startingInventoryCount; j++)
+                    {
+                        fiveSameItems.Add(new Chip(temp[1], temp[2]));
+                    }
                 }
+                else if (temp[0].Substring(0, 1) == "B")
+                {
+                    for (int j = 0; j < startingInventoryCount; j++)
+                    {
+                        fiveSameItems.Add(new Candy(temp[1], temp[2]));
+                    }
+                }
+                else if (temp[0].Substring(0, 1) == "C")
+                {
+                    for (int j = 0; j < startingInventoryCount; j++)
+                    {
+                        fiveSameItems.Add(new Beverage(temp[1], temp[2]));
+                    }
+                }
+                else if (temp[0].Substring(0, 1) == "D")
+                {
+                    for (int j = 0; j < startingInventoryCount; j++)
+                    {
+                        fiveSameItems.Add(new Gum(temp[1], temp[2]));
+                    }
+                }
+                
                 startingItemList.Add(temp[0], fiveSameItems);
             }
 

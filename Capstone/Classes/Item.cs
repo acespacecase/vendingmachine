@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Capstone.Classes
 {
-    public class Item
+    public abstract class Item
     {
         private string name;
-        public string Name
+        public virtual string Name
         {
             get { return this.name; }
         }
         
         private decimal price;
-        public decimal Price
+        public virtual decimal Price
         {
             get { return this.price; }
         }
@@ -25,5 +25,8 @@ namespace Capstone.Classes
             this.name = name;
             this.price = decimal.Parse(price);
         }
+
+        public abstract void Consume();
+
     }
 }
