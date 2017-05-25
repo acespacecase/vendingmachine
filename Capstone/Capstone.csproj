@@ -50,9 +50,8 @@
     <Compile Include="Classes\Gum.cs" />
     <Compile Include="Classes\Item.cs" />
     <Compile Include="Classes\MainMenu.cs" />
-    <Compile Include="Classes\OverdraftException.cs" />
+    <Compile Include="Classes\VendingMachineException.cs" />
     <Compile Include="Classes\Reader.cs" />
-    <Compile Include="Classes\SoldOutException.cs" />
     <Compile Include="Classes\VendingMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

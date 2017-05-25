@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Capstone.Classes
 {
-    public class OverdraftException : Exception
+    public class VendingMachineException : Exception
     {
-        public OverdraftException(string message)
+        public VendingMachineException(string message)
             : base(message)
         {
 

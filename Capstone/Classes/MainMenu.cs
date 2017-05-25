@@ -62,15 +62,31 @@ namespace Capstone.Classes
 
         public void ViewPurchaseSubMenu(VendingMachine vm)
         {
-            Console.WriteLine("(1) Feed Money");
-            Console.WriteLine("(2) Select Product");
-            Console.WriteLine("(3) Finish Transaction");
-            Console.WriteLine();
-            Console.WriteLine($"Current money provided: {vm.CurrentMoneyAmount.ToString("C2")}");
-            Console.WriteLine();
+            bool isCorrectValue = true;
+            
+            while (isCorrectValue)
+            {
+                Console.WriteLine("(1) Feed Money");
+                Console.WriteLine("(2) Select Product");
+                Console.WriteLine("(3) Finish Transaction");
+                Console.WriteLine();
+                Console.WriteLine($"Current money provided: {vm.CurrentMoneyAmount.ToString("C2")}");
+                Console.WriteLine();
 
-            int userChoice = int.Parse(Console.ReadLine());
-            UserActionInSubMenu(userChoice, vm);
+                try
+                {
+                    int userChoice = int.Parse(Console.ReadLine());
+
+                    isCorrectValue = false;
+                    UserActionInSubMenu(userChoice, vm);
+
+                }
+                catch
+                {
+                    Console.WriteLine("Sorry, I didn't understand that.");
+                }
+            }
+            
         }
 
         public void UserActionInSubMenu(int userChoice, VendingMachine vm)
@@ -84,19 +100,27 @@ namespace Capstone.Classes
                 {
                     Console.WriteLine();
                     Console.WriteLine("How much money are you entering? 1, 2, 5, or 10?");
-                    decimal userMoneyEntered = decimal.Parse(Console.ReadLine());
-
-                    if (!(userMoneyEntered == 1 || userMoneyEntered == 2 || userMoneyEntered == 5 || userMoneyEntered == 10))
+                    try
                     {
-                        Console.WriteLine("I didn't recognize that.. I only accept 1, 2, 5, and 10.");
+                        decimal userMoneyEntered = decimal.Parse(Console.ReadLine());
 
+                        if (!(userMoneyEntered == 1 || userMoneyEntered == 2 || userMoneyEntered == 5 || userMoneyEntered == 10))
+                        {
+                            Console.WriteLine("I didn't recognize that.. I only accept 1, 2, 5, and 10.");
+
+                        }
+                        else
+                        {
+                            vm.AddMoney(userMoneyEntered);
+                            ViewPurchaseSubMenu(vm);
+                            isCorrectValue = false;
+                        }
                     }
-                    else
+                    catch
                     {
-                        vm.AddMoney(userMoneyEntered);
-                        ViewPurchaseSubMenu(vm);
-                        isCorrectValue = false;
+                        Console.WriteLine("Sorry, I didn't understand that.");
                     }
+
                 }
                 
             }
@@ -105,15 +129,15 @@ namespace Capstone.Classes
                 Console.WriteLine();
                 Console.WriteLine("What would you like to purchase?");
                 string chosenItem = Console.ReadLine();
-                Item isItAnItem = vm.Purchase(chosenItem);
-                //if (isItAnItem.GetType() == typeof(Item))
-                //{
-                    currentHaul.Add(isItAnItem);
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Sorry, there was an error.....");
-                //}
+                try
+                {
+                    currentHaul.Add(vm.Purchase(chosenItem));
+                }
+                catch (VendingMachineException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
                 ViewPurchaseSubMenu(vm);
             }
             else if (userChoice == 3)

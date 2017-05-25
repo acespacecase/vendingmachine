@@ -56,12 +56,12 @@ namespace Capstone.Classes
                 }
                 else
                 {
-                    throw new OverdraftException("Sorry, you don't have enough money for that.");
+                    throw new VendingMachineException("Sorry, you don't have enough money for that.");
                 }
             }
             else
             {
-                throw new SoldOutException("Sorry, that's sold out! Try something else.");
+                throw new VendingMachineException("Sorry, that's sold out! Try something else.");
             }
 
         }

@@ -19,7 +19,6 @@ namespace Capstone
              * 
              * create finishTransaction method in VendingMachine (call consume method too)
              * streamwriter class
-             * fix error handling in CLI w/ user input values and throws in VendingMachine
              * tests
              * sales report
              * 
