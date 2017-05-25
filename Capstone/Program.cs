@@ -11,8 +11,19 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            VendingMachine vm = new VendingMachine();
+            MainMenu menu = new MainMenu();
+            
 
+            /*
+             * to do!
+             * 
+             * create finishTransaction method in VendingMachine (call consume method too)
+             * streamwriter class
+             * fix error handling in CLI w/ user input values and throws in VendingMachine
+             * tests
+             * sales report
+             * 
+             */
         }
     }
 }
