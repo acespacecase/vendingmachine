@@ -9,22 +9,37 @@ namespace Capstone.Classes
 {
     public class VendingMachine
     {
-        Dictionary<string, Item> inventory = new Dictionary<string, Item>();
+        // property = CurrentMoneyAmount
+        // method = AddMoney 1, 2, 5, 10
+        // method = purchase
+        // method = isSoldOut
+        // method = complete transaction (change class)
 
+        private decimal currentMoneyAmount = 0;
+        public decimal CurrentMoneyAmount
+        {
+            get { return this.currentMoneyAmount; }
+        }
+
+        Dictionary<string, List<Item>> allItems = new Dictionary<string, List<Item>>();
+        
         public VendingMachine()
         {
-            StockMachine();
-
+            StockMachine(this.allItems);
             MainMenu mainMenu = new MainMenu();
-            mainMenu.Display();
-            
+            mainMenu.Display(allItems);
         }
 
-        private void StockMachine()
+        public void StockMachine(Dictionary<string, List<Item>> allItems)
         {
             Reader readFile = new Reader();
-            inventory = readFile.ReadInventoryFile();
-            
+            this.allItems = readFile.ReadInventoryFile();
         }
+
+        public void AddMoney(decimal dollarAmount)
+        {
+            this.currentMoneyAmount += dollarAmount;
+        }
+
     }
 }

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Item.cs" />
+    <Compile Include="Classes\MainMenu.cs" />
     <Compile Include="Classes\Reader.cs" />
     <Compile Include="Classes\VendingMachine.cs" />
     <Compile Include="Program.cs" />
