@@ -32,6 +32,8 @@ namespace Capstone.Classes
 
                 Console.WriteLine("(1) Display Vending Machine Items");
                 Console.WriteLine("(2) Purchase");
+                Console.WriteLine("(3) Generate Sales Report");
+                Console.WriteLine("(4) Exit");
                 Console.WriteLine();
                 correctAnswer = int.TryParse(Console.ReadLine(), out result);
 
@@ -43,6 +45,17 @@ namespace Capstone.Classes
                 {
                     ViewPurchaseSubMenu(vm);
                     showMainMenu = false;
+                }
+                else if(result == 3)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Generating Sales Report........");
+                    Console.WriteLine();
+                    vm.CreateSalesReport();
+                }
+                else if(result ==4)
+                {
+                    break;
                 }
             }
         }
@@ -72,6 +85,7 @@ namespace Capstone.Classes
                 Console.WriteLine("(1) Feed Money");
                 Console.WriteLine("(2) Select Product");
                 Console.WriteLine("(3) Finish Transaction");
+                Console.WriteLine("(4) Go back to the main Menu");
                 Console.WriteLine();
                 Console.WriteLine($"Current money provided: {vm.CurrentMoneyAmount.ToString("C2")}");
                 Console.WriteLine();
@@ -151,6 +165,10 @@ namespace Capstone.Classes
                 Display(vm);
 
 
+            }
+            else if(userChoice ==4)
+            {
+                Display(vm);
             }
 
         }

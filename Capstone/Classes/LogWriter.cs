@@ -33,5 +33,47 @@ namespace Capstone.Classes
             }
         }
 
+        public void WritingSalesReport(List<Item> allSoldItems)
+        {
+            string directory = Directory.GetCurrentDirectory();
+            string fileName = "SalesReport.txt";
+            string fullPath = Path.Combine(directory, fileName);
+            decimal totalSum = 0.0M;
+
+            Dictionary<Item, int> soldItemCount = new Dictionary<Item, int>();
+
+            for (int i = 0; i < allSoldItems.Count(); i++)
+            {
+                if (soldItemCount.ContainsKey(allSoldItems[i]))
+                {
+                    soldItemCount[allSoldItems[i]]++;
+                }
+                else
+                {
+                    soldItemCount.Add(allSoldItems[i], 1);
+                }
+            }
+
+            try
+            {
+                using (StreamWriter reportWriter = new StreamWriter(fullPath))
+                {
+                    foreach (KeyValuePair<Item, int> item in soldItemCount)
+                    {
+                        reportWriter.WriteLine(item.Key.Name + "|" + item.Value);
+                        totalSum += item.Key.Price;
+                    }
+                    reportWriter.WriteLine();
+                    reportWriter.WriteLine("Total Sales is " + totalSum.ToString("C2"));
+                    reportWriter.Flush();
+                }
+
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("File not found." + ex.Message);
+            }
+        }
+
     }
 }

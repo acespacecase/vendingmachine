@@ -9,11 +9,13 @@ namespace Capstone.Classes
 {
     public class VendingMachine
     {
-        // property = CurrentMoneyAmount
-        // method = AddMoney 1, 2, 5, 10
-        // method = purchase
-        // method = isSoldOut
-        // method = complete transaction (change class)
+
+        private List<Item> allItemsSold = new List<Item>();
+        public List<Item> AllItemsSold
+        {
+            get { return this.allItemsSold; }
+        }
+
         LogWriter lw = new LogWriter();
         private decimal currentMoneyAmount = 0;
         public decimal CurrentMoneyAmount
@@ -95,6 +97,8 @@ namespace Capstone.Classes
                 item.Consume();
                 Console.WriteLine();
             }
+            this.allItemsSold.AddRange(currentHaul);
+            currentHaul.Clear();
             lw.WritingLogFile("Give Change", this.currentMoneyAmount, 0.00M);
             Change change = new Change(this.currentMoneyAmount * 100);
             this.currentMoneyAmount = 0.00M;
@@ -102,6 +106,11 @@ namespace Capstone.Classes
             Console.WriteLine(change.ToString());
             Console.WriteLine();
 
+        }
+
+        public void CreateSalesReport()
+        {
+            lw.WritingSalesReport(this.allItemsSold);
         }
     }
 }
