@@ -38,10 +38,9 @@ namespace Capstone.Classes
         public override string ToString()
         {
             string result = "";
-            decimal change = ((decimal)(this.numQuarters * 25.00M / 100.00M) + (this.numDimes * 10.00M / 100.00M) + (this.numNickels * 5.00M / 100.00M));
-            int dollars = (int)change;
-            int cents = (int)((change - dollars) * 100);
-            result += $"Your change is ${dollars}.{cents}. ";
+            decimal change = ((decimal)(this.numQuarters * .25M ) + (this.numDimes * .10M ) + (this.numNickels * .05M ));
+           
+            result += $"Your change is {change.ToString("C2")}. ";
             result += $"{this.numQuarters} quarters, ";
             result += $"{this.numDimes} dimes, ";
             result += $"and {this.numNickels} nickels.";

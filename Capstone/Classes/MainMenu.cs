@@ -11,6 +11,11 @@ namespace Capstone.Classes
         public MainMenu()
         {
             VendingMachine vm = new VendingMachine();
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("Welcome to Your First Amazing Experience With Vendo-Matic 500");
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine();
+
             Display(vm);
         }
 
@@ -21,11 +26,7 @@ namespace Capstone.Classes
             bool correctAnswer = false;
             bool showMainMenu = true;
             int result = 0;
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine("Welcome to Your First Amazing Experience With Vendo-Matic 500");
-            Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine();
-
+           
             while (showMainMenu)
             {
 
@@ -147,6 +148,7 @@ namespace Capstone.Classes
             else if (userChoice == 3)
             {
                 vm.FinishTransaction(currentHaul);
+                Display(vm);
                 
 
             }

@@ -10,14 +10,11 @@ namespace Capstone.Classes
 {
     public class InventoryReader
     {
-        //IFileSystem fileSystem;
+      //  IFileSystem fileSystem;
 
         public InventoryReader()
         {
-            string directory = Directory.GetCurrentDirectory();
-            string fileName = "vendingmachine.csv";
-            string fullPath = Path.Combine(directory, fileName);
-            ReadInventoryFile(fullPath);
+           // ReadInventoryFile();
 
         }
 
@@ -26,9 +23,12 @@ namespace Capstone.Classes
         //    this.fileSystem = fileSystem;
         //}
 
-        public Dictionary<string, List<Item>> ReadInventoryFile(string fullPath)
+        public Dictionary<string, List<Item>> ReadInventoryFile()
         {
-
+            string directory = Directory.GetCurrentDirectory();
+            string fileName = "vendingmachine.csv";
+            string fullPath = Path.Combine(directory, fileName);
+          
             List<string> fullText = new List<string>();
             Dictionary<string, List<Item>> startingItemList = new Dictionary<string, List<Item>>();
 

@@ -38,6 +38,7 @@ namespace Capstone.Classes
         public void StockMachine(Dictionary<string, List<Item>> allItems)
         {
             InventoryReader readFile = new InventoryReader();
+            this.allItems = readFile.ReadInventoryFile();
           
         }
 
@@ -57,7 +58,10 @@ namespace Capstone.Classes
                 if (allItems[slotNumber][0].Price <= this.currentMoneyAmount)
                 {
                     this.currentMoneyAmount -= allItems[slotNumber][0].Price;
-                    allItems[slotNumber].RemoveAt(0);
+                    Console.WriteLine();
+                    Console.WriteLine("You have purchased " + allItems[slotNumber][0].Name + " for " + allItems[slotNumber][0].Price.ToString("C2"));
+                    Console.WriteLine();
+                    allItems[slotNumber].RemoveAt(0);                
                     return allItems[slotNumber][0];
                 }
                 else
@@ -88,11 +92,16 @@ namespace Capstone.Classes
             foreach (Item item in currentHaul)
             {
                 priceOfAllItems += item.Price;
+                Console.WriteLine();
                 item.Consume();
+                Console.WriteLine();
             }
-            Change change = new Change((this.currentMoneyAmount - priceOfAllItems) * 100);
+            Change change = new Change(this.currentMoneyAmount * 100);
             this.currentMoneyAmount = 0.00M;
+            Console.WriteLine();
             Console.WriteLine(change.ToString());
+            Console.WriteLine();
+            
         }
     }
 }
