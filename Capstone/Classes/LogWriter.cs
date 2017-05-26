@@ -16,18 +16,14 @@ namespace Capstone.Classes
             string fullPath = Path.Combine(directory, fileName);
             DateTime dateCurrentTime = DateTime.Now;
 
-
-
             try
             {
-                using (StreamWriter writer = new StreamWriter(fullPath, true))
+                using (StreamWriter logWriter = new StreamWriter(fullPath, true))
                 {
-                    writer.WriteLine(dateCurrentTime.ToString("MMMM dd, yyyy").PadRight(15) +
+                    logWriter.WriteLine(dateCurrentTime.ToString("MMMM dd, yyyy").PadRight(15) +
                         dateCurrentTime.ToString("H:mm:ss").PadRight(15) + action.PadRight(25) +
                         startingPrice.ToString("C2").PadRight(8) + endingPrice.ToString("C2"));
-
-
-
+                    logWriter.Flush();
                 }
 
             }
@@ -36,7 +32,6 @@ namespace Capstone.Classes
                 Console.WriteLine("File not found." + ex.Message);
             }
         }
-
 
     }
 }

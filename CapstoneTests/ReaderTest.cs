@@ -11,35 +11,34 @@ namespace CapstoneTests
     {
 
 
-        //[TestMethod]
-        //public void TestReader_ReturnsAllItems()
-        //{
-        //    Dictionary<string, MockFileData> fakeFiles = new Dictionary<string, MockFileData>()
-        //    {
-        //        //{ @"C:\temp\file1.txt", new MockFileData("A1|Candy|1.25") },
-        //        //{ @"C:\temp\file2.txt", new MockFileData("B2|Chips|2.00") },
-        //        //{ @"C:\temp\words.txt", new MockFileData("C4|Beverage|2.55") },
-        //        {@"C:\temp\words.txt", new MockFileData("C4|Beverage|2.55") }
-        //    };
-        //    MockFileSystem mockFs = new MockFileSystem(fakeFiles);
-        //    InventoryReader reader = new InventoryReader(mockFs);
+        [TestMethod]
+        public void TestReader_ReturnsAllItems()
+        {
+            Dictionary<string, MockFileData> fakeFiles = new Dictionary<string, MockFileData>()
+            {
+                //{ @"C:\temp\file1.txt", new MockFileData("A1|Candy|1.25") },
+                //{ @"C:\temp\file2.txt", new MockFileData("B2|Chips|2.00") },
+                //{ @"C:\temp\words.txt", new MockFileData("C4|Beverage|2.55") },
+                {@"C:\temp\words.txt", new MockFileData("C4|Beverage|2.55") }
+            };
+            MockFileSystem mockFs = new MockFileSystem(fakeFiles);
+            InventoryReader reader = new InventoryReader(mockFs);
 
-        //    //Dictionary<string, List<Item>> allItems = reader.ReadInventoryFile(@"C:\temp\words.txt");
-        //    Dictionary<string, List<Item>> allItems = reader.ReadInventoryFile(@"C:\temp\words.txt");
+            //Dictionary<string, List<Item>> allItems = reader.ReadInventoryFile(@"C:\temp\words.txt");
+            Dictionary<string, List<Item>> allItems = reader.ReadInventoryFile(@"C:\temp\words.txt");
 
-        //    List<Item> items = new List<Item>();
-        //    Item item = new Beverage("Beverage", "2.55");
-        //    items.Add(item);
-        //    items.Add(item);
-        //    items.Add(item);
-        //    items.Add(item);
-        //    items.Add(item);
-        //    Dictionary<string, List<Item>> testItems = new Dictionary<string, List<Item>>();
-        //    testItems.Add("C4", items);
+            List<Item> items = new List<Item>();
+            Item item = new Beverage("Beverage", "2.55");
+            items.Add(item);
+            Dictionary<string, List<Item>> testItems = new Dictionary<string, List<Item>>();
+            testItems.Add("C4", items);
 
-        //    CollectionAssert.AreEqual(testItems, allItems);
+            Assert.AreEqual(testItems.ContainsKey("C4"), allItems.ContainsKey("C4"));
+            Assert.AreEqual(testItems["C4"].GetType().Name, allItems["C4"].GetType().Name);
+            Assert.AreEqual(testItems["C4"][0].Name, allItems["C4"][0].Name);
+            Assert.AreEqual(testItems["C4"][0].Price, allItems["C4"][0].Price);
 
-        //}
+        }
     }
-    
+
 }

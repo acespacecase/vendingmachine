@@ -26,7 +26,7 @@ namespace Capstone.Classes
             bool correctAnswer = false;
             bool showMainMenu = true;
             int result = 0;
-           
+
             while (showMainMenu)
             {
 
@@ -95,7 +95,7 @@ namespace Capstone.Classes
 
         public void UserActionInSubMenu(int userChoice, VendingMachine vm)
         {
-          
+
 
             if (userChoice == 1)
             {
@@ -149,7 +149,7 @@ namespace Capstone.Classes
             {
                 vm.FinishTransaction(currentHaul);
                 Display(vm);
-                
+
 
             }
 

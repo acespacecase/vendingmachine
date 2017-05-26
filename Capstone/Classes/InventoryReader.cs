@@ -10,25 +10,26 @@ namespace Capstone.Classes
 {
     public class InventoryReader
     {
-      //  IFileSystem fileSystem;
+        IFileSystem fileSystem;
 
-        public InventoryReader()
+        public InventoryReader() : this(new FileSystem())
         {
-           // ReadInventoryFile();
+
+            ReadInventoryFile();
 
         }
-
-        //public InventoryReader(IFileSystem fileSystem)
-        //{
-        //    this.fileSystem = fileSystem;
-        //}
+        public InventoryReader(IFileSystem fileSystem)
+        {
+            this.fileSystem = fileSystem;
+        }
 
         public Dictionary<string, List<Item>> ReadInventoryFile()
         {
             string directory = Directory.GetCurrentDirectory();
             string fileName = "vendingmachine.csv";
             string fullPath = Path.Combine(directory, fileName);
-          
+
+
             List<string> fullText = new List<string>();
             Dictionary<string, List<Item>> startingItemList = new Dictionary<string, List<Item>>();
 
@@ -36,16 +37,16 @@ namespace Capstone.Classes
 
             try
             {
-                //using (Stream stream = this.fileSystem.File.OpenRead(fullPath))
-                //{
-                    using (StreamReader sr = new StreamReader(fullPath))
+                using ( Stream stream = this.fileSystem.File.OpenRead(fullPath))
+                {
+                    using (StreamReader sr = new StreamReader(stream))
                     {
                         while (!sr.EndOfStream)
                         {
                             fullText.Add(sr.ReadLine());
                         }
                     }
-              //  }
+                }
             }
             catch (IOException ex)
             {

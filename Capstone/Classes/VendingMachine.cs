@@ -22,6 +22,7 @@ namespace Capstone.Classes
         }
 
         private Dictionary<string, List<Item>> allItems = new Dictionary<string, List<Item>>();
+
         public Dictionary<string, List<Item>> AllItems
         {
             get { return this.allItems; }
@@ -29,25 +30,22 @@ namespace Capstone.Classes
 
         public VendingMachine()
         {
-            StockMachine(this.allItems);
-            
-            
+            StockMachine();
 
         }
 
-        public void StockMachine(Dictionary<string, List<Item>> allItems)
+        public void StockMachine()
         {
             InventoryReader readFile = new InventoryReader();
             this.allItems = readFile.ReadInventoryFile();
-          
+
         }
 
         public void AddMoney(decimal dollarAmount)
         {
             this.currentMoneyAmount += dollarAmount;
             lw.WritingLogFile("Feed Money", dollarAmount, this.currentMoneyAmount);
-            
-            
+
         }
 
         public Item Purchase(string slotNumber)
@@ -58,10 +56,11 @@ namespace Capstone.Classes
                 if (allItems[slotNumber][0].Price <= this.currentMoneyAmount)
                 {
                     this.currentMoneyAmount -= allItems[slotNumber][0].Price;
+                    lw.WritingLogFile("Purchased " + allItems[slotNumber][0].Name + " " + slotNumber, allItems[slotNumber][0].Price, this.currentMoneyAmount);
                     Console.WriteLine();
                     Console.WriteLine("You have purchased " + allItems[slotNumber][0].Name + " for " + allItems[slotNumber][0].Price.ToString("C2"));
                     Console.WriteLine();
-                    allItems[slotNumber].RemoveAt(0);                
+                    allItems[slotNumber].RemoveAt(0);
                     return allItems[slotNumber][0];
                 }
                 else
@@ -96,12 +95,13 @@ namespace Capstone.Classes
                 item.Consume();
                 Console.WriteLine();
             }
+            lw.WritingLogFile("Give Change", this.currentMoneyAmount, 0.00M);
             Change change = new Change(this.currentMoneyAmount * 100);
             this.currentMoneyAmount = 0.00M;
             Console.WriteLine();
             Console.WriteLine(change.ToString());
             Console.WriteLine();
-            
+
         }
     }
 }

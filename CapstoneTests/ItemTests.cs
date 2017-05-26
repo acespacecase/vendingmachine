@@ -34,7 +34,6 @@ namespace CapstoneTests
             Assert.AreEqual(2.25M, test.Price);
         }
 
-
         [TestMethod]
         public void Item_CreatesNewGumCorrectly()
         {
