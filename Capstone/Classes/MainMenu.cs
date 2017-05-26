@@ -11,11 +11,13 @@ namespace Capstone.Classes
         public MainMenu()
         {
             VendingMachine vm = new VendingMachine();
-            Display(vm.AllItems, vm);
+            Display(vm);
         }
 
-        public void Display(Dictionary<string, List<Item>> allItems, VendingMachine vm)
+
+        public void Display(VendingMachine vm)
         {
+            Dictionary<string, List<Item>> allItems = vm.AllItems;
             bool correctAnswer = false;
             bool showMainMenu = true;
             int result = 0;
@@ -63,7 +65,7 @@ namespace Capstone.Classes
         public void ViewPurchaseSubMenu(VendingMachine vm)
         {
             bool isCorrectValue = true;
-            
+
             while (isCorrectValue)
             {
                 Console.WriteLine("(1) Feed Money");
@@ -86,17 +88,18 @@ namespace Capstone.Classes
                     Console.WriteLine("Sorry, I didn't understand that.");
                 }
             }
-            
+
         }
+        List<Item> currentHaul = new List<Item>();
 
         public void UserActionInSubMenu(int userChoice, VendingMachine vm)
         {
-            List<Item> currentHaul = new List<Item>();
+          
 
             if (userChoice == 1)
             {
                 bool isCorrectValue = true;
-                while(isCorrectValue)
+                while (isCorrectValue)
                 {
                     Console.WriteLine();
                     Console.WriteLine("How much money are you entering? 1, 2, 5, or 10?");
@@ -122,7 +125,7 @@ namespace Capstone.Classes
                     }
 
                 }
-                
+
             }
             else if (userChoice == 2)
             {
@@ -130,6 +133,7 @@ namespace Capstone.Classes
                 Console.WriteLine("What would you like to purchase?");
                 string chosenItem = Console.ReadLine();
                 try
+
                 {
                     currentHaul.Add(vm.Purchase(chosenItem));
                 }
@@ -137,11 +141,14 @@ namespace Capstone.Classes
                 {
                     Console.WriteLine(e.Message);
                 }
-                
+
                 ViewPurchaseSubMenu(vm);
             }
             else if (userChoice == 3)
             {
+                vm.FinishTransaction(currentHaul);
+                
+
             }
 
         }

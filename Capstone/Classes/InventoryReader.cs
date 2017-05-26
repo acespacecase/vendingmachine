@@ -4,16 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.IO.Abstractions;
 
 namespace Capstone.Classes
 {
-    public class Reader
+    public class InventoryReader
     {
-        public Dictionary<string, List<Item>> ReadInventoryFile()
+        //IFileSystem fileSystem;
+
+        public InventoryReader()
         {
             string directory = Directory.GetCurrentDirectory();
             string fileName = "vendingmachine.csv";
             string fullPath = Path.Combine(directory, fileName);
+            ReadInventoryFile(fullPath);
+
+        }
+
+        //public InventoryReader(IFileSystem fileSystem)
+        //{
+        //    this.fileSystem = fileSystem;
+        //}
+
+        public Dictionary<string, List<Item>> ReadInventoryFile(string fullPath)
+        {
+
             List<string> fullText = new List<string>();
             Dictionary<string, List<Item>> startingItemList = new Dictionary<string, List<Item>>();
 
@@ -21,13 +36,16 @@ namespace Capstone.Classes
 
             try
             {
-                using (StreamReader sr = new StreamReader(fullPath))
-                {
-                    while (!sr.EndOfStream)
+                //using (Stream stream = this.fileSystem.File.OpenRead(fullPath))
+                //{
+                    using (StreamReader sr = new StreamReader(fullPath))
                     {
-                        fullText.Add(sr.ReadLine());
+                        while (!sr.EndOfStream)
+                        {
+                            fullText.Add(sr.ReadLine());
+                        }
                     }
-                }
+              //  }
             }
             catch (IOException ex)
             {
@@ -68,7 +86,7 @@ namespace Capstone.Classes
                         fiveSameItems.Add(new Gum(temp[1], temp[2]));
                     }
                 }
-                
+
                 startingItemList.Add(temp[0], fiveSameItems);
             }
 

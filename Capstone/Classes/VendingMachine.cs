@@ -14,7 +14,7 @@ namespace Capstone.Classes
         // method = purchase
         // method = isSoldOut
         // method = complete transaction (change class)
-
+        LogWriter lw = new LogWriter();
         private decimal currentMoneyAmount = 0;
         public decimal CurrentMoneyAmount
         {
@@ -30,17 +30,23 @@ namespace Capstone.Classes
         public VendingMachine()
         {
             StockMachine(this.allItems);
+            
+            
+
         }
 
         public void StockMachine(Dictionary<string, List<Item>> allItems)
         {
-            Reader readFile = new Reader();
-            this.allItems = readFile.ReadInventoryFile();
+            InventoryReader readFile = new InventoryReader();
+          
         }
 
         public void AddMoney(decimal dollarAmount)
         {
             this.currentMoneyAmount += dollarAmount;
+            lw.WritingLogFile("Feed Money", dollarAmount, this.currentMoneyAmount);
+            
+            
         }
 
         public Item Purchase(string slotNumber)
@@ -75,9 +81,18 @@ namespace Capstone.Classes
             return false;
         }
 
-        //public string FinishTransaction()
-        //{
+        public void FinishTransaction(List<Item> currentHaul)
 
-        //}
+        {
+            decimal priceOfAllItems = 0.00M;
+            foreach (Item item in currentHaul)
+            {
+                priceOfAllItems += item.Price;
+                item.Consume();
+            }
+            Change change = new Change((this.currentMoneyAmount - priceOfAllItems) * 100);
+            this.currentMoneyAmount = 0.00M;
+            Console.WriteLine(change.ToString());
+        }
     }
 }

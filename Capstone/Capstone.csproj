@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Abstractions, Version=2.0.0.144, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.2.0.0.144\lib\net40\System.IO.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,15 +52,17 @@
     <Compile Include="Classes\Chip.cs" />
     <Compile Include="Classes\Gum.cs" />
     <Compile Include="Classes\Item.cs" />
+    <Compile Include="Classes\LogWriter.cs" />
     <Compile Include="Classes\MainMenu.cs" />
     <Compile Include="Classes\VendingMachineException.cs" />
-    <Compile Include="Classes\Reader.cs" />
+    <Compile Include="Classes\InventoryReader.cs" />
     <Compile Include="Classes\VendingMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
