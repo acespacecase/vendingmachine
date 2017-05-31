@@ -12,17 +12,7 @@ namespace Capstone
         static void Main(string[] args)
         {
             MainMenu menu = new MainMenu();
-            
-
-            /*
-             * to do!
-             * 
-             * create finishTransaction method in VendingMachine (call consume method too)
-             * streamwriter class
-             * tests
-             * sales report
-             * 
-             */
+            menu.Display();
         }
     }
 }

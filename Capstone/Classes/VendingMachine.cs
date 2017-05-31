@@ -17,6 +17,7 @@ namespace Capstone.Classes
         }
 
         LogWriter lw = new LogWriter();
+
         private decimal currentMoneyAmount = 0;
         public decimal CurrentMoneyAmount
         {
@@ -24,7 +25,6 @@ namespace Capstone.Classes
         }
 
         private Dictionary<string, List<Item>> allItems = new Dictionary<string, List<Item>>();
-
         public Dictionary<string, List<Item>> AllItems
         {
             get { return this.allItems; }
@@ -59,9 +59,6 @@ namespace Capstone.Classes
                 {
                     this.currentMoneyAmount -= allItems[slotNumber][0].Price;
                     lw.WritingLogFile("Purchased " + allItems[slotNumber][0].Name + " " + slotNumber, allItems[slotNumber][0].Price, this.currentMoneyAmount);
-                    Console.WriteLine();
-                    Console.WriteLine("You have purchased " + allItems[slotNumber][0].Name + " for " + allItems[slotNumber][0].Price.ToString("C2"));
-                    Console.WriteLine();
                     allItems[slotNumber].RemoveAt(0);
                     return allItems[slotNumber][0];
                 }
@@ -86,10 +83,10 @@ namespace Capstone.Classes
             return false;
         }
 
-        public void FinishTransaction(List<Item> currentHaul)
-
+        public Change FinishTransaction(List<Item> currentHaul)
         {
             decimal priceOfAllItems = 0.00M;
+
             foreach (Item item in currentHaul)
             {
                 priceOfAllItems += item.Price;
@@ -97,15 +94,16 @@ namespace Capstone.Classes
                 item.Consume();
                 Console.WriteLine();
             }
+
             this.allItemsSold.AddRange(currentHaul);
             currentHaul.Clear();
+
             lw.WritingLogFile("Give Change", this.currentMoneyAmount, 0.00M);
+
             Change change = new Change(this.currentMoneyAmount * 100);
             this.currentMoneyAmount = 0.00M;
-            Console.WriteLine();
-            Console.WriteLine(change.ToString());
-            Console.WriteLine();
 
+            return change;
         }
 
         public void CreateSalesReport()

@@ -8,24 +8,21 @@ namespace Capstone.Classes
 {
     public class MainMenu
     {
-        public MainMenu()
+        private VendingMachine vm = new VendingMachine();
+
+        public void Display()
         {
-            VendingMachine vm = new VendingMachine();
+
+            Dictionary<string, List<Item>> allItems = vm.AllItems;
+            bool correctAnswer = false;
+            bool showMainMenu = true;
+            int result = 0;
+
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("Welcome to Your First Amazing Experience With Vendo-Matic 500");
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine();
 
-            Display(vm);
-        }
-
-
-        public void Display(VendingMachine vm)
-        {
-            Dictionary<string, List<Item>> allItems = vm.AllItems;
-            bool correctAnswer = false;
-            bool showMainMenu = true;
-            int result = 0;
 
             while (showMainMenu)
             {
@@ -43,17 +40,17 @@ namespace Capstone.Classes
                 }
                 else if (result == 2)
                 {
-                    ViewPurchaseSubMenu(vm);
-                    showMainMenu = false;
+                    ViewPurchaseSubMenu();
+                    //showMainMenu = false;
                 }
-                else if(result == 3)
+                else if (result == 3)
                 {
                     Console.WriteLine();
                     Console.WriteLine("Generating Sales Report........");
                     Console.WriteLine();
                     vm.CreateSalesReport();
                 }
-                else if(result ==4)
+                else if (result == 4)
                 {
                     break;
                 }
@@ -76,11 +73,11 @@ namespace Capstone.Classes
             Console.WriteLine();
         }
 
-        public void ViewPurchaseSubMenu(VendingMachine vm)
+        public void ViewPurchaseSubMenu()
         {
-            bool isCorrectValue = true;
+            bool repeatSubMenu = true;
 
-            while (isCorrectValue)
+            while (repeatSubMenu)
             {
                 Console.WriteLine("(1) Feed Money");
                 Console.WriteLine("(2) Select Product");
@@ -94,20 +91,24 @@ namespace Capstone.Classes
                 {
                     int userChoice = int.Parse(Console.ReadLine());
 
-                    isCorrectValue = false;
-                    UserActionInSubMenu(userChoice, vm);
+                    //isCorrectValue = false;
+                    repeatSubMenu = UserActionInSubMenu(userChoice);
 
+                }
+                catch (VendingMachineException ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
                 catch
                 {
-                    Console.WriteLine("Sorry, I didn't understand that.");
+                    Console.WriteLine("I didn't understand that.");
                 }
             }
 
         }
         List<Item> currentHaul = new List<Item>();
 
-        public void UserActionInSubMenu(int userChoice, VendingMachine vm)
+        public bool UserActionInSubMenu(int userChoice)
         {
 
 
@@ -125,19 +126,19 @@ namespace Capstone.Classes
                         if (!(userMoneyEntered == 1 || userMoneyEntered == 2 || userMoneyEntered == 5 || userMoneyEntered == 10))
                         {
                             Console.WriteLine("I didn't recognize that.. I only accept 1, 2, 5, and 10.");
-
                         }
                         else
                         {
                             vm.AddMoney(userMoneyEntered);
-                            ViewPurchaseSubMenu(vm);
-                            isCorrectValue = false;
+                            //ViewPurchaseSubMenu(vm);
+                            //isCorrectValue = false;
                         }
                     }
                     catch
                     {
                         Console.WriteLine("Sorry, I didn't understand that.");
                     }
+                    return true;
 
                 }
 
@@ -148,28 +149,36 @@ namespace Capstone.Classes
                 Console.WriteLine("What would you like to purchase?");
                 string chosenItem = Console.ReadLine();
                 try
-
                 {
-                    currentHaul.Add(vm.Purchase(chosenItem));
+                    Item currentItem = vm.Purchase(chosenItem);
+                    currentHaul.Add(currentItem);
+                    Console.WriteLine();
+                    Console.WriteLine("You have purchased " + currentItem.Name + " for " + currentItem.Price.ToString("C2"));
+                    Console.WriteLine();
                 }
                 catch (VendingMachineException e)
                 {
                     Console.WriteLine(e.Message);
                 }
 
-                ViewPurchaseSubMenu(vm);
+                return true;
+                //ViewPurchaseSubMenu(vm);
             }
             else if (userChoice == 3)
             {
-                vm.FinishTransaction(currentHaul);
-                Display(vm);
-
+                Change change = vm.FinishTransaction(currentHaul);
+                Console.WriteLine();
+                Console.WriteLine(change.ToString());
+                Console.WriteLine();
+                return false;
 
             }
-            else if(userChoice ==4)
+            else if (userChoice == 4)
             {
-                Display(vm);
+                return false;
             }
+
+            return true;
 
         }
     }

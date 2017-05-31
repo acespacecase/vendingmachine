@@ -41,7 +41,7 @@ namespace Capstone.Classes
             decimal totalSum = 0.0M;
 
             Dictionary<Item, int> soldItemCount = new Dictionary<Item, int>();
-
+            
             for (int i = 0; i < allSoldItems.Count(); i++)
             {
                 if (soldItemCount.ContainsKey(allSoldItems[i]))
